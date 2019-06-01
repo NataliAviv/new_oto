@@ -7,19 +7,23 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-Button btnStart;
-Button button_to_login;
-Button button_to_register_1;
+    Button btnStart;
+    Button button_to_login;
+    Button button_to_register_1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnStart=(Button)findViewById(R.id.button_start);
+        btnStart = (Button) findViewById(R.id.button_start);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainPageActivity(); }});
-        button_to_login=(Button)findViewById(R.id.buttonLogin);
+                openMainPageActivity();
+            }
+        });
+
+        button_to_login = (Button) findViewById(R.id.buttonLogin);
         button_to_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +31,7 @@ Button button_to_register_1;
             }
         });
 
-        button_to_register_1=(Button)findViewById(R.id.buttonToRegisterStep1);
+        button_to_register_1 = (Button) findViewById(R.id.buttonToRegisterStep1);
         button_to_register_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,15 +41,19 @@ Button button_to_register_1;
 
 
     }
-    public void openMainPageActivity(){
-        Intent intent=new Intent(this, MainPageActivity.class);
+
+    public void openMainPageActivity() {
+        Intent intent = new Intent(this, MainPageActivity.class);
         startActivity(intent);
     }
-    public void openLoginActivity(){
-        Intent intent=new Intent(this, LoginActivity.class);
-        startActivity(intent); }
-    public void openRegisterStep1Activity(){
-       Intent intent=new Intent(this, RegisterStep1Activity.class);
+
+    public void openLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void openRegisterStep1Activity() {
+        Intent intent = new Intent(this, RegisterStep1Activity.class);
         startActivity(intent);
     }
 

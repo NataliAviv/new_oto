@@ -80,7 +80,7 @@
                 android:text="Next Step" />
 
             <EditText
-                android:id="@+id/editTextAddress"
+                android:id="@+id/reg2_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -92,10 +92,10 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextCity"
+                android:id="@+id/reg2_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextAddress"
+                android:layout_below="@+id/reg2_address"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="16dp"
@@ -104,10 +104,10 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextCountry"
+                android:id="@+id/reg2_country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextCity"
+                android:layout_below="@+id/reg2_city"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="16dp"
@@ -116,10 +116,10 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextPhone"
+                android:id="@+id/reg2_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextCountry"
+                android:layout_below="@+id/reg2_country"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="14dp"
@@ -128,10 +128,10 @@
                 android:inputType="textPersonName" />
 
             <CheckBox
-                android:id="@+id/checkBoxCarOwner"
+                android:id="@+id/reg2_checkBoxCarOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextPhone"
+                android:layout_below="@+id/reg2_phone"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="22dp"

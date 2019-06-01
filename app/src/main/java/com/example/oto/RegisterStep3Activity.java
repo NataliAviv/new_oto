@@ -12,7 +12,7 @@ public class RegisterStep3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regiester_step3);
+        setContentView(R.layout.activity_register_step3);
 
         button_to_register_4 = (Button) findViewById(R.id.buttonToRegisterStep4);
         button_to_register_4.setOnClickListener(new View.OnClickListener() {
