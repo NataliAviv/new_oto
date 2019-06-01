@@ -42,13 +42,25 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="29dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginTop="53dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="-19dp"
                 android:src="@drawable/ic_person" />
         </RelativeLayout>
     </LinearLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/orange"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:navigationIcon="@android:drawable/ic_menu_compass"
+        android:logo="@android:drawable/ic_menu_view"
+        app:logo="@drawable/logo"
+        tools:ignore="MissingConstraints" />
     <LinearLayout
         android:id="@+id/linearLayoutDown2"
         android:layout_width="0dp"
