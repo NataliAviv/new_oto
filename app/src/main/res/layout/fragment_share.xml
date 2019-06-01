@@ -2,14 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_purple">
+    android:background="@android:color/holo_orange_light">
 
-    <TextView
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="share"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="From:" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="To:" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Share your ride"
         />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="63dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="165dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/button2"
+        android:layout_toRightOf="@id/button2"
+        android:src="@drawable/ic_car" />
+
 
 </RelativeLayout>
