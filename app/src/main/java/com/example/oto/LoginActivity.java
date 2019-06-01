@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
+
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();

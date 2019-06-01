@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_orange_light">
 
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"

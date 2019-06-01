@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:backgroundTintMode="screen"
     android:background="@drawable/background">
 
     <ImageView
@@ -40,16 +41,17 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="#80FF9800"
             android:text="Login"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <Button
             android:id="@+id/buttonToRegisterStep1"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="#80FF9800"
             android:text="Register"
             android:textStyle="bold" />
 
@@ -60,7 +62,8 @@
             android:text="Main Page"
             tools:layout_editor_absoluteX="107dp"
             tools:layout_editor_absoluteY="248dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+           />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
