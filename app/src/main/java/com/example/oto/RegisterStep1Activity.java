@@ -7,37 +7,44 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.util.regex.Pattern;
 
 public class RegisterStep1Activity extends AppCompatActivity {
 
     Button button_to_register_2;
-    EditText textEmailInput;
-    EditText textPasswordInput;
-    EditText textConfirmPasswordInput;
-    EditText textFirstName;
-    EditText textLastName;
+    EditText emailInput;
+    EditText passwordInput;
+    EditText confirmPasswordInput;
+    EditText firstNameInput;
+    EditText lastNameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step1);
 
+        emailInput = findViewById(R.id.reg1_email);
+        passwordInput = findViewById(R.id.reg1_password);
+        confirmPasswordInput = findViewById(R.id.reg1_confirm_password);
+        firstNameInput = findViewById(R.id.reg1_first_name);
+        lastNameInput = findViewById(R.id.reg1_last_name);
 
         button_to_register_2 = (Button) findViewById(R.id.buttonToRegisterStep2);
         button_to_register_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                App.setFirstName(firstNameInput.getText().toString());
+                App.setLastName(lastNameInput.getText().toString());
+                App.setEmail(emailInput.getText().toString());
+                App.setPassword(passwordInput.getText().toString());
                 openRegisterStep2Activity(v);
             }
         });
 
-        textEmailInput = findViewById(R.id.emailEditText);
-        textPasswordInput = findViewById(R.id.passwordEditText);
-        textConfirmPasswordInput = findViewById(R.id.confimPasswordEditText);
-        textFirstName = findViewById(R.id.firstNameEditText);
-        textLastName = findViewById(R.id.lastNameEditText);
+
+
 
     }
 
@@ -47,16 +54,16 @@ public class RegisterStep1Activity extends AppCompatActivity {
             Pattern.compile(regex);
 
     public boolean validateEmail() {
-        String emailInput = textEmailInput.getText().toString().trim();
+        String emailInput = this.emailInput.getText().toString().trim();
 
         if (emailInput.isEmpty()) {
-            textEmailInput.setError("Field can't be empty");
+            this.emailInput.setError("Field can't be empty");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            textEmailInput.setError("Please enter a valid email address");
+            this.emailInput.setError("Please enter a valid email address");
             return false;
         } else {
-            textEmailInput.setError(null);
+            this.emailInput.setError(null);
             return true;
         }
     }
@@ -74,56 +81,56 @@ public class RegisterStep1Activity extends AppCompatActivity {
             );
 
     public boolean validatePassword() {
-        String passwordInput = textPasswordInput.getText().toString().trim();
+        String passwordInput = this.passwordInput.getText().toString().trim();
 
         if (passwordInput.isEmpty()) {
-            textPasswordInput.setError("Field can't be empty");
+            this.passwordInput.setError("Field can't be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            textPasswordInput.setError("Password too weak");
+            this.passwordInput.setError("Password too weak");
             return false;
         } else {
-            textPasswordInput.setError(null);
+            this.passwordInput.setError(null);
             return true;
         }
     }
 
     private boolean validateFirstName() {
-        String usernameInput = textFirstName.getText().toString().trim();
+        String usernameInput = firstNameInput.getText().toString().trim();
 
         if (usernameInput.isEmpty()) {
-            textFirstName.setError("Field can't be empty");
+            firstNameInput.setError("Field can't be empty");
             return false;
         } else {
-            textFirstName.setError(null);
+            firstNameInput.setError(null);
             return true;
         }
     }
 
     private boolean validateLastName() {
-        String usernameInput = textLastName.getText().toString().trim();
+        String usernameInput = lastNameInput.getText().toString().trim();
 
         if (usernameInput.isEmpty()) {
-            textLastName.setError("Field can't be empty");
+            lastNameInput.setError("Field can't be empty");
             return false;
         } else {
-            textLastName.setError(null);
+            lastNameInput.setError(null);
             return true;
         }
     }
 
     private boolean validateConfirmPassword() {
-        String confirmPasswordInput = textConfirmPasswordInput.getText().toString().trim();
-        String passwordInput = textPasswordInput.getText().toString().trim();
+        String confirmPasswordInput = this.confirmPasswordInput.getText().toString().trim();
+        String passwordInput = this.passwordInput.getText().toString().trim();
 
         if (confirmPasswordInput.isEmpty()){
-            textConfirmPasswordInput.setError("Field can't be empty");
+            this.confirmPasswordInput.setError("Field can't be empty");
             return false;
         } else if(confirmPasswordInput.compareTo(passwordInput) == 1){
-            textConfirmPasswordInput.setError("Password isn't confirm");
+            this.confirmPasswordInput.setError("Password isn't confirm");
             return false;
         }else{
-            textConfirmPasswordInput.setError(null);
+            this.confirmPasswordInput.setError(null);
             return true;
         }
     }
@@ -132,6 +139,7 @@ public class RegisterStep1Activity extends AppCompatActivity {
         if(!validateFirstName() || !validateLastName() || !validateEmail() || !validatePassword() || !validateConfirmPassword()) {
             return;
         }
+
         Intent intent = new Intent(this, RegisterStep2Activity.class);
         startActivity(intent);
     }

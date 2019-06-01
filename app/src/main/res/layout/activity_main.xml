@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/otoImage"
@@ -58,9 +58,9 @@
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="Main Page"
+            tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="107dp"
-            tools:layout_editor_absoluteY="248dp"
-            tools:ignore="MissingConstraints" />
+            tools:layout_editor_absoluteY="248dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

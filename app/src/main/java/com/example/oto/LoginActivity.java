@@ -1,6 +1,8 @@
 package com.example.oto;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -151,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                                         openMainPageActivity();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
+                                        loginAlertDialog();
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -206,4 +209,26 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openRegisterStep1Activity() {
+        Intent intent = new Intent(this, RegisterStep1Activity.class);
+        startActivity(intent);
+    }
+
+    public void loginAlertDialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Suggestion");
+        alert.setMessage("You'r Not Signed In.\n"+"Do You Want To Register");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openRegisterStep1Activity();
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alert.show();
+    }
 }
