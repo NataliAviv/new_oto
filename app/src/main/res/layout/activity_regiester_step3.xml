@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/orange"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:navigationIcon="@android:drawable/ic_menu_compass"
-        android:logo="@android:drawable/ic_menu_view"
-        app:logo="@drawable/logo"
-        tools:ignore="MissingConstraints" />
     <LinearLayout
         android:id="@+id/linearLayoutUp3"
         android:layout_width="0dp"
@@ -54,10 +42,10 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="47dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="-13dp"
-                app:srcCompat="@drawable/ic_person" />
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="29dp"
+                android:layout_marginBottom="17dp"
+                android:src="@drawable/ic_person" />
 
         </RelativeLayout>
     </LinearLayout>
