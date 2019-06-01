@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RegiesterStep3Activity extends AppCompatActivity {
+public class RegisterStep3Activity extends AppCompatActivity {
     Button button_to_register_4;
 
     @Override
@@ -23,8 +23,8 @@ public class RegiesterStep3Activity extends AppCompatActivity {
         });
     }
 
-    public void openRegisterStep4Activity(View v){
-       /* Intent intent=new Intent(this, RegisterStep4Activity.class);
-        startActivity(intent);*/
+    public void openRegisterStep4Activity(View v) {
+        Intent intent = new Intent(this, RegisterStep4Activity.class);
+        startActivity(intent);
     }
 }

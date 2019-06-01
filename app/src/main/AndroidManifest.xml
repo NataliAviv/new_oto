@@ -16,8 +16,8 @@
         android:supportsRtl="true"
        android:theme="@style/AppTheme">
         <activity android:name=".RegisterStep5Activity"></activity>
-        <activity android:name=".RegiesterStep4Activity" />
-        <activity android:name=".RegiesterStep3Activity" />
+        <activity android:name=".RegisterStep4Activity" />
+        <activity android:name=".RegisterStep3Activity" />
         <activity android:name=".RegisterStep2Activity" />
         <activity android:name=".RegisterStep1Activity" />
         <activity android:name=".LoginActivity" />

@@ -24,7 +24,7 @@ public class RegisterStep2Activity extends AppCompatActivity {
     }
 
     public void openRegisterStep3Activity(View v){
-        Intent intent=new Intent(this, RegiesterStep3Activity.class);
+        Intent intent=new Intent(this, RegisterStep3Activity.class);
         startActivity(intent);
     }
 }

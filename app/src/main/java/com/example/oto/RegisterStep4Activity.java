@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
-public class RegiesterStep4Activity extends AppCompatActivity {
+public class RegisterStep4Activity extends AppCompatActivity {
     Button button_to_register_5;
 
     EditText datePicked;
@@ -43,7 +43,7 @@ public class RegiesterStep4Activity extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 //int day = cal.get(Calender.DAY_OF_MONTH);
                 int day = 01;
-                DatePickerDialog dialog = new DatePickerDialog(RegiesterStep4Activity.this, android.R.style.Theme_Holo_Dialog_MinWidth, myDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(RegisterStep4Activity.this, android.R.style.Theme_Holo_Dialog_MinWidth, myDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getDatePicker().findViewById(getResources().getIdentifier("day","id","android")).setVisibility(View.GONE);
                 dialog.setTitle("Choose Expiry Date");
