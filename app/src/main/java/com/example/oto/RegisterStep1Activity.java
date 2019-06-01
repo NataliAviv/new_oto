@@ -39,20 +39,6 @@ public class RegisterStep1Activity extends AppCompatActivity {
         textFirstName = findViewById(R.id.firstNameEditText);
         textLastName = findViewById(R.id.lastNameEditText);
 
-
-        /*MongoClient mongoClient = new MongoClient("mongodb+srv://dbUserValeria:AaValeria123!@cluster0-i5ugy.mongodb.net/test?retryWrites=true");
-        MongoDatabase database = mongoClient.getDatabase("oto");
-        MongoCollection<Document> collection = database.getCollection("users");
-        Document doc = new Document("firstname", "MongoDB")
-                .append("lastname", "database")
-                .append("email", "ziv.cohen.34@gmai.com")
-                .append("password", "1q2w3e4r")
-                .append("phone", "09005512")
-                .append("address","Yaven");
-        collection.insertOne(doc);*/
-
-
-
     }
 
     public static String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";

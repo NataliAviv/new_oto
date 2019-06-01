@@ -114,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
         //If already login
         if (AccessToken.getCurrentAccessToken() != null) {
             txtEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
-            openMainPageActivity();
         }
         //printKeyHash();
 
@@ -149,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                                         String token = user.getString("token");
                                         App.setToken(token);
                                         Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
+                                        openMainPageActivity();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
                                     }
@@ -166,7 +166,6 @@ public class LoginActivity extends AppCompatActivity {
                         });
                 RequestQueue queue = Volley.newRequestQueue(App.getContext());
                 queue.add(jsonObjectRequest);
-                openMainPageActivity();
             }
         });
 
