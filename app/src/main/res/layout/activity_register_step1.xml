@@ -180,7 +180,6 @@
                     android:textColor="@color/white" />
             </RadioGroup>
 
-
         </RelativeLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
