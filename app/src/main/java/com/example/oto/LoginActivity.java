@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //Google Login
-        if(requestCode == GOOGLE_SIGN) {
+        if (requestCode == GOOGLE_SIGN) {
 
         }
         //Facebook Login
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
         /*   Start communication with server   */
 
-        Toast.makeText(this,App.url,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, App.url, Toast.LENGTH_LONG).show();
 
         Button btn_login = findViewById(R.id.login_button);
         final EditText email_login = findViewById(R.id.email_login);
@@ -133,13 +133,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("email",email_login.getText().toString());
-                    obj.put("password",password_login.getText().toString());
+                    obj.put("email", email_login.getText().toString());
+                    obj.put("password", password_login.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.POST, App.url+"user/login", obj, new Response.Listener<JSONObject>() {
+                        (Request.Method.POST, App.url + "user/login", obj, new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {
@@ -204,8 +204,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void openMainPageActivity(){
-        Intent intent=new Intent(this, MainPageActivity.class);
+    public void openMainPageActivity() {
+        Intent intent = new Intent(this, MainPageActivity.class);
         startActivity(intent);
     }
 
@@ -214,10 +214,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loginAlertDialog(){
+    public void loginAlertDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Suggestion");
-        alert.setMessage("You'r Not Signed In.\n"+"Do You Want To Register");
+        alert.setMessage("You'r Not Signed In.\n" + "Do You Want To Register");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

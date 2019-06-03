@@ -44,8 +44,6 @@ public class RegisterStep1Activity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     public static String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
@@ -70,11 +68,11 @@ public class RegisterStep1Activity extends AppCompatActivity {
 
     public static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
-                    "(?=.*[0-9])" +         //at least 1 digit
+                    /*"(?=.*[0-9])" +         //at least 1 digit
                     "(?=.*[a-z])" +         //at least 1 lower case letter
-                    "(?=.*[A-Z])" +         //at least 1 upper case letter
-                    "(?=.*[a-zA-Z])" +      //any letter
-                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=.*[A-Z])" +         //at least 1 upper case letter*/
+                    "(?=.*[a-zA-Z0-9])" +      //any letter
+                    /*"(?=.*[@#$%^&+=])" +    //at least 1 special character*/
                     "(?=\\S+$)" +           //no white spaces
                     ".{4,}" +               //at least 4 characters
                     "$"
@@ -86,10 +84,10 @@ public class RegisterStep1Activity extends AppCompatActivity {
         if (passwordInput.isEmpty()) {
             this.passwordInput.setError("Field can't be empty");
             return false;
-        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
+        }/* else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
             this.passwordInput.setError("Password too weak");
             return false;
-        } else {
+        }*/ else {
             this.passwordInput.setError(null);
             return true;
         }
@@ -123,24 +121,23 @@ public class RegisterStep1Activity extends AppCompatActivity {
         String confirmPasswordInput = this.confirmPasswordInput.getText().toString().trim();
         String passwordInput = this.passwordInput.getText().toString().trim();
 
-        if (confirmPasswordInput.isEmpty()){
+        if (confirmPasswordInput.isEmpty()) {
             this.confirmPasswordInput.setError("Field can't be empty");
             return false;
-        } else if(confirmPasswordInput.compareTo(passwordInput) == 1){
+        } else if (confirmPasswordInput.compareTo(passwordInput) != 0) {
             this.confirmPasswordInput.setError("Password isn't confirm");
             return false;
-        }else{
+        } else {
             this.confirmPasswordInput.setError(null);
             return true;
         }
     }
 
     public void openRegisterStep2Activity(View v) {
-        if(!validateFirstName() || !validateLastName() || !validateEmail() || !validatePassword() || !validateConfirmPassword()) {
-            return;
+        if(validateFirstName() && validateLastName() && validateEmail() && validatePassword() && validateConfirmPassword()) {
+            Intent intent = new Intent(this, RegisterStep2Activity.class);
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(this, RegisterStep2Activity.class);
-        startActivity(intent);
+        return;
     }
 }
