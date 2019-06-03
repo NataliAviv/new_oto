@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:backgroundTintMode="screen"
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/otoImage"
@@ -40,16 +41,17 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="#80FF9800"
             android:text="Login"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <Button
             android:id="@+id/buttonToRegisterStep1"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="#80FF9800"
             android:text="Register"
             android:textStyle="bold" />
 
@@ -58,9 +60,10 @@
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="Main Page"
-            tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="107dp"
-            tools:layout_editor_absoluteY="248dp" />
+            tools:layout_editor_absoluteY="248dp"
+            tools:ignore="MissingConstraints"
+           />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
