@@ -1,53 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_light">
-
-    <EditText
-        android:id="@+id/editText"
+    android:background="@android:color/white">
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="From:" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/autocomplete_fragment"
+            android:text="Search a ride:"
+            android:textColor="@color/orange"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/search_for_ride"/>
+
+
+        <ImageView
+            android:id="@+id/car"
+            android:layout_width="45dp"
+            android:layout_height="39dp"
+            android:layout_below="@id/search_for_ride"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/ic_car" />
+    </LinearLayout>
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="To:" />
+        android:layout_marginTop="70dp"
+        android:text="From:"/>
+
+    <fragment
+        android:id="@+id/auto_complete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autocomplete_fragment"
+        android:layout_marginTop="30dp"
+        android:text="To:"/>
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="193dp"
-        android:layout_height="63dp"
-        android:layout_below="@id/editText4"
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autocomplete_fragment"
+        android:layout_marginTop="115dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Find your ride"
-        android:visibility="visible"
-        tools:visibility="visible" />
+        android:background="@color/orange"
+        android:paddingTop="10dp"
+        android:text="pick Date" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="73dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
-        android:layout_toEndOf="@+id/button2"
-        android:layout_toRightOf="@id/button2"
-        android:src="@drawable/ic_car" />
+    <TextView
+        android:id="@+id/date_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_marginTop="50dp"
+        android:hint="Choose the time: " />
+
+
+    <Button
+        android:id="@+id/search_ride"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@color/orange"
+        android:text="search " />
+
 
 
 </RelativeLayout>

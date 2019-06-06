@@ -1,7 +1,7 @@
 package com.example.oto;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -53,10 +53,12 @@ private DrawerLayout drawer;
                 break;
 
             case R.id.nav_share:
-                Toast.makeText(this,"Share",Toast.LENGTH_SHORT).show();
+                Intent intent_s = new Intent(MainPageActivity.this, ShareActivity.class);
+                startActivity(intent_s);
                 break;
             case R.id.nav_find:
-                Toast.makeText(this,"Find",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainPageActivity.this, FindActivity.class);
+                startActivity(intent);
                 break;
 
         }

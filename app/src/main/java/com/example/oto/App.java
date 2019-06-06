@@ -7,7 +7,7 @@ public class App extends Application {
 
     //TODO: Create User class, Ride class, Car class, Review class.
     //TODO: Update the ip according to the wifi network. Later we will upload the server to the web and get URL.
-    static final public String url = "http://192.168.1.128:8080/";
+    static final public String url = "http://192.168.233.1:8080/";
     static public String token;
     static public String first_name;
     static public String last_name;
