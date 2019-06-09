@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.oto.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -42,7 +43,8 @@ public class FindActivity extends AppCompatActivity {
     int currentHour;
     int currentMinute;
     String ampm;
-    String url ="http://192.168.1.12:8080/search?date=2019-04-14 21:00:00.000Z&dest=nir david&origin=reishon leziopn";
+    String url = "http://192.168.43.154:8080/ride/search?date=2019-04-14 21:00:00.000Z&dest=nir david&origin=reishon leziopn";
+
     protected void onCreate(Bundle savedInstanceState) {
         tv=findViewById(R.id.TV);
         searchBtn=findViewById(R.id.search_ride);
@@ -129,10 +131,10 @@ public class FindActivity extends AppCompatActivity {
                         else {ampm="AM";
                         }
                         chooseTime.setText(String.format("%02d:%02d",hourOfDay,minute)+ampm);
-                    }
-                },currentHour,currentMinute,false);
+                        }
+                    },currentHour,currentMinute,false);
                 timePickerDialog.show();
-            }
+                }
 
         });
         searchBtn=findViewById(R.id.search_ride);

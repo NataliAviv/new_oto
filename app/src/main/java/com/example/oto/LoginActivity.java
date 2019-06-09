@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +35,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,23 +60,46 @@ public class LoginActivity extends AppCompatActivity {
     static final int FACEBOOK_SIGN = 456;
     static final int GOOGLE_SIGN = 123;
 
+    //FirebaseAuth mAuth;
+    //FirebaseAuth.AuthStateListener mAuthListener;
+    Button btn_login;
+    EditText email_login;
+    EditText password_login;
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Google Login
+
+        /*//Google Login
         if (requestCode == GOOGLE_SIGN) {
 
         }
         //Facebook Login
         else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
+        }*/
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FirebaseApp.initializeApp(this);
+        App.mAuth = FirebaseAuth.getInstance();
+
+        App.mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+                    openMainPageActivity();
+                }
+            }
+        };
+
+        btn_login = findViewById(R.id.login_button);
+        email_login = findViewById(R.id.email_login);
+        password_login = findViewById(R.id.password_login);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -123,55 +155,62 @@ public class LoginActivity extends AppCompatActivity {
 
         Toast.makeText(this, App.url, Toast.LENGTH_LONG).show();
 
-        Button btn_login = findViewById(R.id.login_button);
-        final EditText email_login = findViewById(R.id.email_login);
-        final EditText password_login = findViewById(R.id.password_login);
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                JSONObject obj = new JSONObject();
-                try {
-                    obj.put("email", email_login.getText().toString());
-                    obj.put("password", password_login.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.POST, App.url + "user/login", obj, new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    JSONObject user = (JSONObject) response.get("user");
-
-                                    if (user.has("token")) {
-                                        String token = user.getString("token");
-                                        App.setToken(token);
-                                        Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-                                        openMainPageActivity();
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
-                                        loginAlertDialog();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                RequestQueue queue = Volley.newRequestQueue(App.getContext());
-                queue.add(jsonObjectRequest);
+                startSignIn();
             }
         });
 
+
+
+
+    //    btn_login.setOnClickListener(new View.OnClickListener() {
+    //        @Override
+    //        public void onClick(View v) {
+    //            JSONObject obj = new JSONObject();
+    //            try {
+    //                obj.put("email", email_login.getText().toString());
+    //                obj.put("password", password_login.getText().toString());
+    //            } catch (JSONException e) {
+    //                e.printStackTrace();
+    //            }
+    //            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+    //                    (Request.Method.POST, App.url + "user/login", obj, new Response.Listener<JSONObject>() {
+    //                        @Override
+    //                        public void onResponse(JSONObject response) {
+    //                            try {
+    //                                JSONObject user = (JSONObject) response.get("user");
+    //
+    //                                if (user.has("token")) {
+    //                                    String token = user.getString("token");
+    //                                    App.setToken(token);
+    //                                    //Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
+    //                                    /*App.setFirstName(user.get("firstname").toString());
+    //                                    App.setLastName(user.get("lastname").toString());
+    //                                    App.setPhone(user.get("phone").toString());
+    //                                    App.setAddress(user.get("address").toString());
+    //                                    App.setEmail(user.get("email").toString());*/
+    //                                    openMainPageActivity();
+    //                                } else {
+    //                                    Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
+    //                                    loginAlertDialog();
+    //                                }
+    //                            } catch (Exception e) {
+    //                                e.printStackTrace();
+    //                            }
+    //                        }
+    //                    }, new Response.ErrorListener() {
+    //                        @Override
+    //                        public void onErrorResponse(VolleyError error) {
+    //                            error.printStackTrace();
+    //                            Toast.makeText(LoginActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
+    //                        }
+    //                    });
+    //            RequestQueue queue = Volley.newRequestQueue(App.getContext());
+    //            queue.add(jsonObjectRequest);
+    //        }
+    //    });
         /*   Finish communication with server   */
     }
 
@@ -230,5 +269,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         alert.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        App.mAuth.addAuthStateListener(App.mAuthListener);
+    }
+
+    public void startSignIn() {
+        String email = email_login.getText().toString();
+        final String password = password_login.getText().toString();
+        if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(LoginActivity.this, "Fields Are Empty", Toast.LENGTH_LONG).show();
+        } else {
+            App.mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(!task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Auth Problem, Sign In Problem", Toast.LENGTH_LONG).show();
+                    } else {
+                        FirebaseUser user = task.getResult().getUser();
+                        App.setEmail(user.getEmail());
+                        App.setPassword(password);
+                        App.setUID(user.getUid());
+                        Toast.makeText(LoginActivity.this, user.getUid(), Toast.LENGTH_LONG).show();
+                        openMainPageActivity();
+                    }
+                }
+            });
+        }
     }
 }

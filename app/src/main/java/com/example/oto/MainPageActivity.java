@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 private DrawerLayout drawer;
     @Override
@@ -60,7 +62,10 @@ private DrawerLayout drawer;
                 Intent intent = new Intent(MainPageActivity.this, FindActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent_logout = new Intent(MainPageActivity.this, MainActivity.class);
+                startActivity(intent_logout);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

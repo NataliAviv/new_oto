@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RegisterStep5Activity" />
         <activity android:name=".RegisterStep4Activity" />
         <activity android:name=".RegisterStep3Activity" />
         <activity android:name=".RegisterStep2Activity" />

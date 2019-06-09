@@ -28,11 +28,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import org.json.JSONObject;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONObject;
 
@@ -59,6 +67,10 @@ public class ShareActivity extends AppCompatActivity {
     String destination;
     EditText freePlaces;
     TextView textView;
+
+    //ziv
+    String tokenIDFirebase;
+    //ziv end
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_share);
@@ -75,8 +87,8 @@ public class ShareActivity extends AppCompatActivity {
         AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocompletefragment_suggest);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS,Place.Field.NAME));
-        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS,Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -84,8 +96,7 @@ public class ShareActivity extends AppCompatActivity {
                 // TODO: Get info about the selected place.
                 //txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
-                source=place.getAddress();
-
+                source = place.getAddress();
             }
 
             @Override
@@ -100,8 +111,8 @@ public class ShareActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 //txtView.setText(place.getName()+","+place.getId());
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-                destination=place.getAddress();
+                Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
+                destination = place.getAddress();
             }
 
             @Override
@@ -155,79 +166,110 @@ public class ShareActivity extends AppCompatActivity {
             }
 
         });
-       // freePlaces=findViewById(R.id.free_place);
+        // freePlaces=findViewById(R.id.free_place);
         btnSuggest = (Button) findViewById(R.id.suggest_ride);
-        textView=findViewById(R.id.tv_suggest);
+        textView = findViewById(R.id.tv_suggest);
 
         btnSuggest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.setSource(source);
-                App.setDest(destination);
-                App.setDate(ShowTheDate.getText().toString());
-                App.setTime(chooseTime.getText().toString());
-                // App.setFreePlaces(freePlaces.getText().toString());
-                /*    Start communication to server    */
 
-                JSONObject obj = new JSONObject();
-                try{
-                    obj.put("origin", App.getFirstName());
-                    obj.put("dest",App.getLastName());
-                    obj.put("date",App.getDate());
-                    obj.put("time",App.getTime());
-                    obj.put("driver","q5bgVuvrPHPtRJl54sDl6kNCw5f1");
-                    //obj.put("free Places",App.getPassword());
-                    // obj.put("driver",App.getEmail());
-                    // obj.put("id",App.getEmail());
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    App.setSource(source);
+                    App.setDest(destination);
+                    App.setDate(ShowTheDate.getText().toString());
+                    App.setTime(chooseTime.getText().toString());
 
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.POST, App.url + "ride", obj, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                textView.setText("connect to server!");
+                    //Toast.makeText(ShareActivity.this, user.getUid(), Toast.LENGTH_SHORT).show();
+
+                    user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                            if(task.isSuccessful()){
+                                tokenIDFirebase = task.getResult().getToken();
+                                JSONObject obj = new JSONObject();
                                 try {
-                                    JSONObject user = (JSONObject) response.get("ride");
-                                    Toast.makeText(ShareActivity.this, "got ride", Toast.LENGTH_LONG).show();
-                                    if (user.has("token")) {
-                                        String token = user.getString("token");
-                                        App.setToken(token);
-                                        Toast.makeText(ShareActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-                                        openSuggestResult();
-                                    } else {
-                                        Toast.makeText(ShareActivity.this, "No Such User", Toast.LENGTH_LONG).show();
-                                        openRegisterStep1Activity();
-                                    }
+                                    obj.put("origin", App.getFirstName());
+                                    obj.put("dest", App.getLastName());
+                                    obj.put("date", App.getDate());
+                                    obj.put("time", App.getTime());
+                                    obj.put("driver", tokenIDFirebase);
+                                    //obj.put("free Places",App.getPassword());
+                                    // obj.put("driver",App.getEmail());
+                                    // obj.put("id",App.getEmail());
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                textView.setText("faild to connect to server!");
-                                Toast.makeText(ShareActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
-                                Log.i(error.getMessage(), "HttpPost() - onErrorResponse() ");
 
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                                        (Request.Method.POST, App.url + "ride/", obj, new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                Toast.makeText(ShareActivity.this, App.getUID()+"\n"+tokenIDFirebase, Toast.LENGTH_SHORT).show();
+                                                textView.setText("connect to server!");
+                                                try {
+                                                    JSONObject user = (JSONObject) response.get("ride");
+                                                    Toast.makeText(ShareActivity.this, "got ride", Toast.LENGTH_LONG).show();
+                                                    if (user.has("token")) {
+                                                        String token = user.getString("token");
+                                                        App.setToken(token);
+                                                        Toast.makeText(ShareActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
+                                                        openSuggestResult();
+                                                    } else {
+                                                        Toast.makeText(ShareActivity.this, "No Such User", Toast.LENGTH_LONG).show();
+                                                        openRegisterStep1Activity();
+                                                    }
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                error.printStackTrace();
+                                                textView.setText("faild to connect to server!");
+                                                //Toast.makeText(ShareActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
+                                                Log.i(error.getMessage(), "HttpPost() - onErrorResponse() ");
+
+                                            }
+                                        }) {
+                                    @Override
+                                    public Map<String, String> getHeaders() throws AuthFailureError {
+                                        HashMap<String, String> params = new HashMap<String, String>();
+                                        String creds = String.format("%s:%s", "hqplayer", "valvole");
+                                        String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                                        params.put("Authorization", auth);
+                                        return params;
+                                    }
+                                };
+
+                                RequestQueue queue = Volley.newRequestQueue(App.getContext());
+                                queue.add(jsonObjectRequest);
+
+                                openSuggestResult();
+                            }else{
+                                Toast.makeText(ShareActivity.this, "Failed To Get Token From User", Toast.LENGTH_SHORT).show();
                             }
-                        }) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        String creds = String.format("%s:%s", "hqplayer", "valvole");
-                        String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-                        params.put("Authorization", auth);
-                        return params;
-                    }
-                };
+                        }
+                    });
+
+
+
+                } else {
+                    // No user is signed in
+                }
+
+
+                // App.setFreePlaces(freePlaces.getText().toString());
+                /*    Start communication to server    */
+
+
+
                 /*    Finished communication to server    */
-                RequestQueue queue = Volley.newRequestQueue(App.getContext());
-                queue.add(jsonObjectRequest);
 
-                openSuggestResult();
             }
         });
     }
@@ -242,7 +284,6 @@ public class ShareActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterStep1Activity.class);
         startActivity(intent);
     }
-
 
 
 }

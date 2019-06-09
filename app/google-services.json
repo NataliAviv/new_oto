@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "117408822530",
+    "firebase_url": "https://otoproject-1551103792513.firebaseio.com",
+    "project_id": "otoproject-1551103792513",
+    "storage_bucket": "otoproject-1551103792513.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117408822530:android:74df0b622083e66e",
+        "android_client_info": {
+          "package_name": "com.example.oto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117408822530-1jptnovom8n5av2u0p9igsl9jkijlprp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVCIhioQ1eDthAPMMYwKJ0olrFhytmd1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117408822530-1jptnovom8n5av2u0p9igsl9jkijlprp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
