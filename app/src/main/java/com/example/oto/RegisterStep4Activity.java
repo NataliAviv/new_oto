@@ -55,16 +55,7 @@ public class RegisterStep4Activity extends AppCompatActivity {
                                         public void onResponse(JSONObject response) {
                                             try {
                                                 String requestStatus = response.toString();
-
-
-                                                    //Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-                                                    /*App.setFirstName(user.get("firstname").toString());
-                                                    App.setLastName(user.get("lastname").toString());
-                                                    App.setPhone(user.get("phone").toString());
-                                                    App.setAddress(user.get("address").toString());
-                                                    App.setEmail(user.get("email").toString());*/
-                                                    openMainPageActivity();
-
+                                                openMainPageActivity();
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
