@@ -49,6 +49,7 @@ public class RegisterStep2Activity extends AppCompatActivity {
                 /*    Start communication to server    */
 
                 JSONObject obj = new JSONObject();
+
                 try{
                     Toast.makeText(RegisterStep2Activity.this, App.getUID(), Toast.LENGTH_LONG).show();
                     obj.put("uid", App.getUID());
