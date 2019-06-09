@@ -42,6 +42,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,52 +166,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    //    btn_login.setOnClickListener(new View.OnClickListener() {
-    //        @Override
-    //        public void onClick(View v) {
-    //            JSONObject obj = new JSONObject();
-    //            try {
-    //                obj.put("email", email_login.getText().toString());
-    //                obj.put("password", password_login.getText().toString());
-    //            } catch (JSONException e) {
-    //                e.printStackTrace();
-    //            }
-    //            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-    //                    (Request.Method.POST, App.url + "user/login", obj, new Response.Listener<JSONObject>() {
-    //                        @Override
-    //                        public void onResponse(JSONObject response) {
-    //                            try {
-    //                                JSONObject user = (JSONObject) response.get("user");
-    //
-    //                                if (user.has("token")) {
-    //                                    String token = user.getString("token");
-    //                                    App.setToken(token);
-    //                                    //Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-    //                                    /*App.setFirstName(user.get("firstname").toString());
-    //                                    App.setLastName(user.get("lastname").toString());
-    //                                    App.setPhone(user.get("phone").toString());
-    //                                    App.setAddress(user.get("address").toString());
-    //                                    App.setEmail(user.get("email").toString());*/
-    //                                    openMainPageActivity();
-    //                                } else {
-    //                                    Toast.makeText(LoginActivity.this, "No Such User", Toast.LENGTH_LONG).show();
-    //                                    loginAlertDialog();
-    //                                }
-    //                            } catch (Exception e) {
-    //                                e.printStackTrace();
-    //                            }
-    //                        }
-    //                    }, new Response.ErrorListener() {
-    //                        @Override
-    //                        public void onErrorResponse(VolleyError error) {
-    //                            error.printStackTrace();
-    //                            Toast.makeText(LoginActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
-    //                        }
-    //                    });
-    //            RequestQueue queue = Volley.newRequestQueue(App.getContext());
-    //            queue.add(jsonObjectRequest);
-    //        }
-    //    });
+
         /*   Finish communication with server   */
     }
 
@@ -293,7 +249,8 @@ public class LoginActivity extends AppCompatActivity {
                         App.setEmail(user.getEmail());
                         App.setPassword(password);
                         App.setUID(user.getUid());
-                        Toast.makeText(LoginActivity.this, user.getUid(), Toast.LENGTH_LONG).show();
+                        App.setToken(FirebaseInstanceId.getInstance().getToken());
+                        Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
                         openMainPageActivity();
                     }
                 }
