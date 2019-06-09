@@ -15,6 +15,12 @@ import android.widget.TimePicker;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -26,7 +32,9 @@ public class FindActivity extends AppCompatActivity {
     String TAG = "placeAutoComplete";
     Button mDatebtn;
     Calendar calendar;
+    Button searchBtn;
     TextView ShowTheDate;
+    TextView tv;
     DatePickerDialog datePickerDialog;
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
@@ -34,7 +42,10 @@ public class FindActivity extends AppCompatActivity {
     int currentHour;
     int currentMinute;
     String ampm;
+    String url ="http://192.168.1.12:8080/search?date=2019-04-14 21:00:00.000Z&dest=nir david&origin=reishon leziopn";
     protected void onCreate(Bundle savedInstanceState) {
+        tv=findViewById(R.id.TV);
+        searchBtn=findViewById(R.id.search_ride);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_find);
 
@@ -118,14 +129,38 @@ public class FindActivity extends AppCompatActivity {
                         else {ampm="AM";
                         }
                         chooseTime.setText(String.format("%02d:%02d",hourOfDay,minute)+ampm);
-                        }
-                    },currentHour,currentMinute,false);
+                    }
+                },currentHour,currentMinute,false);
                 timePickerDialog.show();
-                }
+            }
 
         });
+        searchBtn=findViewById(R.id.search_ride);
+        tv= findViewById(R.id.TV);
+
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestQueue queue = Volley.newRequestQueue(FindActivity.this);
+                StringRequest request = new StringRequest(url,new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        tv.setText(response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        tv.setText(error.getMessage()+"error");
+
+                    }
+                });
+                queue.add(request);
+                queue.start();
+
+            }
+        });
+
     }
-
-
 
 }

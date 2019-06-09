@@ -1,13 +1,20 @@
 package com.example.oto;
 
 import android.app.Application;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 
 public class App extends Application {
 
     //TODO: Create User class, Ride class, Car class, Review class.
     //TODO: Update the ip according to the wifi network. Later we will upload the server to the web and get URL.
-    static final public String url = "http://192.168.233.1:8080/";
+    static final public String url = "http://192.168.1.12:8080/";
     static public String token;
     static public String first_name;
     static public String last_name;
@@ -17,6 +24,18 @@ public class App extends Application {
     static public String city;
     static public String country;
     static public String phone;
+
+    static public String date;
+    static public String time;
+    static public String  source;
+    static public  String dest;
+    static public String freePlaces;
+    static public String  driver;
+    static public String id_;
+
+
+
+
 
     private static Application sApplication;
 
@@ -105,5 +124,39 @@ public class App extends Application {
     public static String getPhone(){
         return phone;
     }
+
+    public static void setDate(String adate){ date=adate; }
+
+    public static String getDate(){
+        return date;
+    }
+    public static void setTime(String atime){ time=atime; }
+
+    public static String getTime(){
+        return time;
+    }
+
+    public static void setDest(String adest){ dest=adest; }
+
+    public static String getDest(){
+        return dest;
+    }
+
+    public static void setSource(String asource){ source=asource; }
+    public static String getSource(){
+        return source;
+    }
+
+    public static String getFreePlaces(){
+        return freePlaces;
+    }
+    public static void setFreePlaces(String afree){ freePlaces=afree; }
+
+
+
+
+
+
+
 
 }

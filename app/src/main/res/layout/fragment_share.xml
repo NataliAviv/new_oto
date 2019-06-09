@@ -1,4 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -91,12 +94,31 @@
         android:id="@+id/suggest_ride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+
+
+
+
+
+
+
+
+
         android:layout_below="@id/free_place"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@color/orange"
         android:text="suggest " />
 
-
+<TextView
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:textSize="10sp"
+    android:layout_below="@id/suggest_ride"
+    android:text="connect to server"
+    android:id="@+id/tv_suggest"
+    android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
+
+   </ScrollView>
