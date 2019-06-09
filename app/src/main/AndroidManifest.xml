@@ -15,15 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RegisterStep5Activity" />
+        <activity android:name=".SuggestResultActivity"></activity>
         <activity android:name=".RegisterStep4Activity" />
         <activity android:name=".RegisterStep3Activity" />
         <activity android:name=".RegisterStep2Activity" />
         <activity android:name=".RegisterStep1Activity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".FindActivity" />
-        <activity android:name=".ShareActivity"/>
-
+        <activity android:name=".ShareActivity" />
         <activity
             android:name=".MainPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />

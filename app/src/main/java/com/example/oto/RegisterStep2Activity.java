@@ -24,8 +24,6 @@ import org.json.JSONObject;
 public class RegisterStep2Activity extends AppCompatActivity {
     Button button_to_register_3;
     EditText addressInput;
-    EditText cityInput;
-    EditText countryInput;
     EditText phoneInput;
     CheckBox checkBoxInput;
 
@@ -36,8 +34,6 @@ public class RegisterStep2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_register_step2);
 
         addressInput = findViewById(R.id.reg2_address);
-        cityInput = findViewById(R.id.reg2_city);
-        countryInput = findViewById(R.id.reg2_country);
         phoneInput = findViewById(R.id.reg2_phone);
         checkBoxInput = findViewById(R.id.reg2_checkBoxCarOwner);
 
@@ -46,8 +42,6 @@ public class RegisterStep2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 App.setAddress(addressInput.getText().toString());
-                App.setCity(cityInput.getText().toString());
-                App.setCountry(countryInput.getText().toString());
                 App.setPhone(phoneInput.getText().toString());
 
                 //TODO: Ziv - Server Connection - Register Step 1 And 2 - Need To Do The Transformation Of Data To The Server.
@@ -56,8 +50,11 @@ public class RegisterStep2Activity extends AppCompatActivity {
 
                 JSONObject obj = new JSONObject();
                 try{
-                    obj.put("firstname", App.getFirstName());
-                    obj.put("lastname",App.getLastName());
+                    Toast.makeText(RegisterStep2Activity.this, App.getUID(), Toast.LENGTH_LONG).show();
+                    obj.put("uid", App.getUID());
+                    //obj.put("firstname", App.getFirstName());
+                    //obj.put("lastname",App.getLastName());
+                    obj.put("fullname",App.getFirstName()+" "+App.getLastName());
                     obj.put("phone",App.getPhone());
                     obj.put("address",App.getAddress());
                     obj.put("password",App.getPassword());

@@ -48,7 +48,7 @@
                 android:src="@drawable/ic_person" />
 
             <TextView
-                android:id="@+id/textViewPaymentMethods"
+                android:id="@+id/textViewTermsOfUse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView4"
@@ -57,7 +57,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="31dp"
-                android:hint="Payment Methods" />
+                android:hint="Terms Of Use" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -85,74 +85,24 @@
             <!-- Add Text -->
 
             <Button
-                android:id="@+id/buttonToRegisterStep5"
+                android:id="@+id/reg4_btn_to_main_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="12dp"
-                android:text="Next Step" />
+                android:text="Finish" />
 
-            <EditText
-                android:id="@+id/editTextCardType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <CheckBox
+                android:id="@+id/reg4_check_box_terms"
+                android:layout_width="238dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="28dp"
-                android:ems="10"
-                android:hint="Card Type"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/editTextOwnerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="85dp"
-                android:ems="10"
-                android:hint="Owner Name"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/editTextCardNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="143dp"
-                android:ems="10"
-                android:hint="Card Number"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/editTextExpiryDate"
-                android:layout_width="111dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="201dp"
-                android:ems="10"
-                android:hint="Expiry Date"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/editTextCVV"
-                android:layout_width="89dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="200dp"
-                android:layout_marginEnd="160dp"
-                android:ems="10"
-                android:hint="CVV"
-                android:inputType="number" />
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="109dp"
+                android:text="Terms Of Use, Please Check" />
 
         </RelativeLayout>
     </LinearLayout>

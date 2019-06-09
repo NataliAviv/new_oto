@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Oto</string>
     <string name="facebook_app_id">2805607932806578</string>
-    <string name="fb_login_protocol_scheme">fb2580963348644065</string>
+    <string name="fb_login_protocol_scheme">fb2805607932806578</string>
     <string name="title_activity_driver_map">Map</string>
     <string name="title_activity_passenger_maps">Map</string>
     <string name="login">Login</string>
@@ -16,6 +16,10 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="signed_out">Signed Out</string>
 
 
 </resources>
