@@ -71,7 +71,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/editTextCarCompany"
+                android:id="@+id/reg3_CarCompany"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -83,7 +83,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/editTextModel"
+                android:id="@+id/reg3_Model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -105,7 +105,7 @@
                 android:text="Next Step" />
 
             <EditText
-                android:id="@+id/editTextColor"
+                android:id="@+id/reg3_Color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -117,7 +117,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/editTextLicensePlate"
+                android:id="@+id/reg3_LicensePlate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

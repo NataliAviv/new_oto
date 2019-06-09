@@ -26,18 +26,27 @@ public class App extends Application {
     static public String token;
     static public String first_name;
     static public String last_name;
+    static public String gender = "Male";
+    static public String birthday = "1993-06-19T21:00:00.000Z";
     static public String email;
     static public String password;
     static public String address;
     static public String phone;
+    static public String city;
+    static public String country;
+    static public String carModel;
+    static public String model;
+    static public String carColor;
+    static public String license;
     static public String UID;
+
 
     static public String date;
     static public String time;
-    static public String  source;
+    static public String source;
     static public String dest;
     static public String freePlaces;
-    static public String  driver;
+    static public String driver;
     static public String id_;
 
 
@@ -82,6 +91,22 @@ public class App extends Application {
         return last_name;
     }
 
+    public static void setGender(String nGender){
+        gender = nGender;
+    }
+
+    public static String getGender(){
+        return gender;
+    }
+
+    public static void setBirthday(String nBirthday){
+        birthday = nBirthday;
+    }
+
+    public static String getBirthday(){
+        return birthday;
+    }
+
     public static void setEmail(String mEmail) {
         email = mEmail;
     }
@@ -112,6 +137,54 @@ public class App extends Application {
 
     public static String getPhone(){
         return phone;
+    }
+
+    public static void setCity(String nCity){
+        city = nCity;
+    }
+
+    public static String getCity(){
+        return city;
+    }
+
+    public static void setCountry(String nCounty){
+        country = nCounty;
+    }
+
+    public static String getCountry(){
+        return country;
+    }
+
+    public static void setCarModel(String nCarModel){
+        carModel = nCarModel;
+    }
+
+    public static String getCarModel(){
+        return carModel;
+    }
+
+    public static void setModel(String nModel){
+        model = nModel;
+    }
+
+    public static String getModel(){
+        return model;
+    }
+
+    public static void setCarColor(String nCarColor){
+        carColor = nCarColor;
+    }
+
+    public static String getCarColor(){
+        return carColor;
+    }
+
+    public static void setLicense(String nLicense){
+        license = nLicense;
+    }
+
+    public static String getLicense(){
+        return license;
     }
 
     public static void setUID(String nUID) {

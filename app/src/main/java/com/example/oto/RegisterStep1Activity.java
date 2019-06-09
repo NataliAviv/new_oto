@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.regex.Pattern;
 
@@ -158,6 +159,7 @@ public class RegisterStep1Activity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = App.mAuth.getCurrentUser();
                                 App.setUID(user.getUid());
+                                App.setToken(FirebaseInstanceId.getInstance().getToken());
                                 openNextRegStep();
                             } else {
                                 // If sign in fails, display a message to the user.
