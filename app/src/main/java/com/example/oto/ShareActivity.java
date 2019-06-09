@@ -35,6 +35,9 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import org.json.JSONObject;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
@@ -68,7 +71,6 @@ public class ShareActivity extends AppCompatActivity {
     //ziv
     String tokenIDFirebase;
     //ziv end
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_share);
@@ -85,8 +87,8 @@ public class ShareActivity extends AppCompatActivity {
         AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocompletefragment_suggest);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME));
-        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -95,7 +97,6 @@ public class ShareActivity extends AppCompatActivity {
                 //txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
                 source = place.getAddress();
-
             }
 
             @Override
@@ -110,7 +111,7 @@ public class ShareActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 //txtView.setText(place.getName()+","+place.getId());
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
                 destination = place.getAddress();
             }
 

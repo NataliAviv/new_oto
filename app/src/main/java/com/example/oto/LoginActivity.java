@@ -253,7 +253,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loginAlertDialog() {
+    public  void loginAlertDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Suggestion");
         alert.setMessage("You'r Not Signed In.\n" + "Do You Want To Register");

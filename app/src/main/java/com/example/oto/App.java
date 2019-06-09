@@ -1,7 +1,14 @@
 package com.example.oto;
 
 import android.app.Application;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,11 +98,11 @@ public class App extends Application {
         return password;
     }
 
-    public static void setAddress(String nAddress) {
-        address = nAddress;
+    public static void setAddress(String nAddress){
+        address=nAddress;
     }
 
-    public static String getAddress() {
+    public static String getAddress(){
         return address;
     }
 
@@ -103,7 +110,7 @@ public class App extends Application {
         phone = nPhone;
     }
 
-    public static String getPhone() {
+    public static String getPhone(){
         return phone;
     }
 

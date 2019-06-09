@@ -1,114 +1,114 @@
 <ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/autocomplete_fragment"
-                android:text="Suggest a ride:"
-                android:textColor="@color/orange"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="30dp"
-                android:id="@+id/search_for_ride"/>
-
-
-            <ImageView
-                android:id="@+id/car"
-                android:layout_width="45dp"
-                android:layout_height="39dp"
-                android:layout_below="@id/search_for_ride"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_car" />
-        </LinearLayout>
-        <fragment
-            android:id="@+id/autocomplete_fragment_suggest"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="From:"/>
-
-        <fragment
-            android:id="@+id/autocompletefragment_suggest"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/autocomplete_fragment_suggest"
-            android:layout_marginTop="30dp"
-            android:text="To:"/>
-
-        <Button
-            android:id="@+id/date_suggest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/autocompletefragment_suggest"
-            android:layout_marginTop="50dp"
-            android:layout_centerHorizontal="true"
-            android:background="@color/orange"
-            android:paddingTop="10dp"
-            android:text="pick Date"
-            />
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/date_show_sug"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/date_suggest"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_above="@id/autocomplete_fragment"
+            android:text="Suggest a ride:"
+            android:textColor="@color/orange"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:textSize="20dp"
-            />
-
-        <EditText
-            android:id="@+id/time_suggest"
-            android:layout_width="226dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/date_suggest"
-            android:layout_marginTop="30dp"
-            android:hint="Choose the time: " />
+            android:layout_marginBottom="30dp"
+            android:id="@+id/search_for_ride"/>
 
 
-        <EditText
-            android:id="@+id/free_place"
-            android:layout_width="224dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/time_suggest"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:inputType="number"
-            android:text="Free places: " />
-        <Button
-            android:id="@+id/suggest_ride"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/free_place"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:background="@color/orange"
-            android:text="suggest " />
+        <ImageView
+            android:id="@+id/car"
+            android:layout_width="45dp"
+            android:layout_height="39dp"
+            android:layout_below="@id/search_for_ride"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/ic_car" />
+    </LinearLayout>
+    <fragment
+        android:id="@+id/autocomplete_fragment_suggest"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="From:"/>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:layout_below="@id/suggest_ride"
-            android:text="connect to server"
-            android:id="@+id/tv_suggest"
-            android:layout_centerHorizontal="true"/>
+    <fragment
+        android:id="@+id/autocompletefragment_suggest"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autocomplete_fragment_suggest"
+        android:layout_marginTop="30dp"
+        android:text="To:"/>
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/date_suggest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/autocompletefragment_suggest"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/orange"
+        android:paddingTop="10dp"
+        android:text="pick Date"
+        />
 
-</ScrollView>
+    <TextView
+        android:id="@+id/date_show_sug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_suggest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/time_suggest"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_suggest"
+        android:layout_marginTop="30dp"
+        android:hint="Choose the time: " />
+
+
+    <EditText
+        android:id="@+id/free_place"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time_suggest"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Free places: " />
+    <Button
+        android:id="@+id/suggest_ride"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/free_place"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/orange"
+        android:text="suggest " />
+
+<TextView
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:textSize="10sp"
+    android:layout_below="@id/suggest_ride"
+    android:text="connect to server"
+    android:id="@+id/tv_suggest"
+    android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
+
+   </ScrollView>

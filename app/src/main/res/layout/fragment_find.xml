@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -46,7 +45,6 @@
         android:layout_marginTop="30dp"
         android:text="To:"/>
 
-
     <Button
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -76,13 +74,13 @@
         android:layout_below="@id/date"
         android:layout_marginTop="50dp"
         android:hint="Choose the time: " />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/time"
-        android:text="detail from server"
-        android:textSize="40dp"
-        android:id="@+id/TV"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/time"
+    android:text="detail from server"
+    android:textSize="40dp"
+    android:id="@+id/TV"/>
 
     <Button
         android:id="@+id/search_ride"
@@ -93,5 +91,7 @@
         android:layout_marginTop="100dp"
         android:background="@color/orange"
         android:text="search " />
+
+
 
 </RelativeLayout>
