@@ -4,14 +4,20 @@ import android.app.Application;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 
 import com.firebase.client.Firebase;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 
 public class App extends Application {
@@ -221,4 +227,39 @@ public class App extends Application {
         return freePlaces;
     }
     public static void setFreePlaces(String afree){ freePlaces=afree; }
+
+    public static void conectTofireBase(String email, String password){
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete( Task<AuthResult> task) {
+                if(!task.isSuccessful()) {
+
+                } else {
+                    FirebaseUser user = task.getResult().getUser();
+                    setEmail(user.getEmail());
+                    setPassword(App.password);
+                    setUID(user.getUid());
+
+                    FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                    mUser.getIdToken(true)
+                            .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                    if (task.isSuccessful()) {
+                                        String idToken = task.getResult().getToken();
+                                        App.setToken(idToken);
+                                        // Send token to your backend via HTTPS
+                                        // ...
+                                    } else {
+                                        // Handle error -> task.getException();
+                                    }
+                                }
+                            });
+                    //Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }
+
+

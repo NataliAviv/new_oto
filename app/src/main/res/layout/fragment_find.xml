@@ -33,7 +33,11 @@
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
         android:text="From:"/>
 
     <fragment
@@ -42,45 +46,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/autocomplete_fragment"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
         android:text="To:"/>
 
-    <Button
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/autocomplete_fragment"
-        android:layout_marginTop="115dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/orange"
-        android:paddingTop="10dp"
-        android:text="pick Date" />
 
-    <TextView
-        android:id="@+id/date_show"
-        android:layout_width="wrap_content"
+
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="226dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        />
+        android:layout_below="@id/auto_complete_fragment"
+        android:layout_marginTop="80dp"
+        android:layout_centerInParent="true"
+
+        android:hint="Choose Date " />
+
 
     <EditText
         android:id="@+id/time"
         android:layout_width="226dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/date"
+        android:gravity="center"
+
+        android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
-        android:hint="Choose the time: " />
+        android:hint="Choose time " />
+
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@+id/time"
-    android:text="detail from server"
-    android:textSize="40dp"
-    android:id="@+id/TV"/>
+    android:textSize="30dp"
+    android:id="@+id/TV"
+    android:text="Details From Server"/>
 
     <Button
         android:id="@+id/search_ride"
