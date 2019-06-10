@@ -20,14 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth.getInstance().signOut();
 
-        btnStart = (Button) findViewById(R.id.button_start);
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainPageActivity();
-            }
-        });
-
         button_to_login = (Button) findViewById(R.id.buttonLogin);
         button_to_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +37,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    public void openMainPageActivity() {
-        Intent intent = new Intent(this, MainPageActivity.class);
-        startActivity(intent);
     }
 
     public void openLoginActivity() {

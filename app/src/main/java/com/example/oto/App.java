@@ -18,7 +18,7 @@ public class App extends Application {
 
     //TODO: Create User class, Ride class, Car class, Review class.
     //TODO: Update the ip according to the wifi network. Later we will upload the server to the web and get URL.
-    static final public String url = "http://192.168.1.19:8080/";
+    static final public String url = "http://192.168.1.12:8080/";
 
     static public FirebaseAuth mAuth;
     static public FirebaseAuth.AuthStateListener mAuthListener;

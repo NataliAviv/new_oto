@@ -58,6 +58,7 @@
         android:background="@color/orange"
         android:paddingTop="10dp"
         android:text="pick Date"
+        android:startYear="2019"
         />
 
     <TextView
@@ -80,21 +81,11 @@
         android:hint="Choose the time: " />
 
 
-    <EditText
-        android:id="@+id/free_place"
-        android:layout_width="224dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/time_suggest"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="Free places: " />
     <Button
         android:id="@+id/suggest_ride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/free_place"
+        android:layout_below="@id/time_suggest"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@color/orange"

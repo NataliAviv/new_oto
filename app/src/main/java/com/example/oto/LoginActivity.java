@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     EditText email_login;
     EditText password_login;
-
+    String tokenIdFirebase;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startSignIn();
+
             }
         });
 

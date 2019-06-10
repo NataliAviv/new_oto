@@ -136,7 +136,7 @@ public class ShareActivity extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(com.example.oto.ShareActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int mYear, int mMonth, int mday) {
-                        ShowTheDate.setText(mday + "/" + (mMonth + 1) + "/" + mYear);
+                        ShowTheDate.setText(mday + "/" + mMonth  + "/" + mYear);
                     }
                 }, day, month, year);
                 datePickerDialog.show();
@@ -189,13 +189,13 @@ public class ShareActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                             if(task.isSuccessful()){
                                 tokenIDFirebase = task.getResult().getToken();
-                                JSONObject obj = new JSONObject();
+                                final JSONObject obj = new JSONObject();
                                 try {
                                     obj.put("origin", App.getFirstName());
                                     obj.put("dest", App.getLastName());
                                     obj.put("date", App.getDate());
                                     obj.put("time", App.getTime());
-                                    obj.put("driver", tokenIDFirebase);
+                                    obj.put("driver", App.getUID());
                                     //obj.put("free Places",App.getPassword());
                                     // obj.put("driver",App.getEmail());
                                     // obj.put("id",App.getEmail());
@@ -205,7 +205,7 @@ public class ShareActivity extends AppCompatActivity {
                                 }
 
                                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                                        (Request.Method.POST, App.url + "ride/", obj, new Response.Listener<JSONObject>() {
+                                        (Request.Method.POST, App.url + "ride", obj, new Response.Listener<JSONObject>() {
                                             @Override
                                             public void onResponse(JSONObject response) {
                                                 Toast.makeText(ShareActivity.this, App.getUID()+"\n"+tokenIDFirebase, Toast.LENGTH_SHORT).show();
@@ -237,13 +237,19 @@ public class ShareActivity extends AppCompatActivity {
                                             }
                                         }) {
                                     @Override
-                                    public Map<String, String> getHeaders() throws AuthFailureError {
-                                        HashMap<String, String> params = new HashMap<String, String>();
-                                        String creds = String.format("%s:%s", "hqplayer", "valvole");
-                                        String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-                                        params.put("Authorization", auth);
-                                        return params;
+                                    public byte[] getBody() {
+                                        String stringobj=obj.toString();
+                                        return stringobj.getBytes();
                                     }
+
+                                    @Override
+                                    public Map<String , String> getHeaders() throws AuthFailureError{
+                                        HashMap<String,String> headers = new HashMap<String,String>();
+                                        headers.put("Content-Type" , "application/json");
+                                        headers.put("Authorization" , App.getToken());
+                                        return headers;
+                                    }
+
                                 };
 
                                 RequestQueue queue = Volley.newRequestQueue(App.getContext());
