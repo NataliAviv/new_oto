@@ -42,6 +42,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
@@ -61,8 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     static final int FACEBOOK_SIGN = 456;
     static final int GOOGLE_SIGN = 123;
 
-    //FirebaseAuth mAuth;
-    //FirebaseAuth.AuthStateListener mAuthListener;
+
     Button btn_login;
     EditText email_login;
     EditText password_login;
@@ -235,26 +235,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void startSignIn() {
         String email = email_login.getText().toString();
-        final String password = password_login.getText().toString();
+        String password = password_login.getText().toString();
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(LoginActivity.this, "Fields Are Empty", Toast.LENGTH_LONG).show();
         } else {
-            App.mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(!task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Auth Problem, Sign In Problem", Toast.LENGTH_LONG).show();
-                    } else {
-                        FirebaseUser user = task.getResult().getUser();
-                        App.setEmail(user.getEmail());
-                        App.setPassword(password);
-                        App.setUID(user.getUid());
-                        App.setToken(FirebaseInstanceId.getInstance().getToken());
-                        Toast.makeText(LoginActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-                        openMainPageActivity();
-                    }
-                }
-            });
+            App.conectTofireBase(email,password);
         }
     }
 }

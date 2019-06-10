@@ -1,5 +1,6 @@
 package com.example.oto;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,11 +23,15 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +50,7 @@ import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -52,28 +59,43 @@ import java.util.Map;
 public class ShareActivity extends AppCompatActivity {
 
     String TAG = "placeAutoComplete";
-    Button mDatebtn;
-    Calendar calendar;
-    TextView ShowTheDate;
-    DatePickerDialog datePickerDialog;
+
+///Vkiew elements
+    //suggest button
+    Button btnSuggest;
+
+   //Auto complete
+    String origin_ac;
+    String dest_ac;
+
+
+    //time
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
-    Calendar c2;
+    String time;
+    String ampm;
     int currentHour;
     int currentMinute;
-    String ampm;
-    Button btnSuggest;
-    String source;
-    String destination;
-    EditText freePlaces;
-    TextView textView;
 
-    //ziv
-    String tokenIDFirebase;
-    //ziv end
+
+    //date
+    Calendar calendar;
+    DatePickerDialog datePickerDialog;
+    Calendar c2;
+    EditText chooseDate;
+    String date;
+
+
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_share);
+
+
+        //Initialize views
+        chooseTime = findViewById(R.id.time_suggest);
+        btnSuggest = findViewById(R.id.suggest_btn);
+
 
         /*start autocomplete */
         // Initialize Places.
@@ -82,13 +104,15 @@ public class ShareActivity extends AppCompatActivity {
         PlacesClient placesClient = Places.createClient(this);
 
         // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment_suggest);
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.to_ac_suggest);
         //add to autocomplete
-        AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocompletefragment_suggest);
+        AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.from_ac_suggest);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS,Place.Field.NAME));
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.ADDRESS,Place.Field.NAME));
+        autocompleteFragment.setCountry("il");
+        autocompleteFragment2.setCountry("il");
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -96,7 +120,7 @@ public class ShareActivity extends AppCompatActivity {
                 // TODO: Get info about the selected place.
                 //txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
-                source = place.getAddress();
+                origin_ac = place.getAddress();
             }
 
             @Override
@@ -109,171 +133,132 @@ public class ShareActivity extends AppCompatActivity {
         autocompleteFragment2.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                //txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getAddress() + ", " + place.getId());
-                destination = place.getAddress();
+                dest_ac = place.getAddress();
             }
 
             @Override
             public void onError(Status status) {
-                // TODO: Handle the error.
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
 
         /*finish autocomplete */
-        ShowTheDate = (TextView) findViewById(R.id.date_show_sug);
-        mDatebtn = (Button) findViewById(R.id.date_suggest);
-        mDatebtn.setOnClickListener(new View.OnClickListener() {
+        //time dialog
+        chooseTime=findViewById(R.id.time_suggest);
+        chooseTime.setOnTouchListener(new View.OnTouchListener() {
+            int callCount=0;
             @Override
-            public void onClick(View v) {
-                calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                datePickerDialog = new DatePickerDialog(com.example.oto.ShareActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int mYear, int mMonth, int mday) {
-                        ShowTheDate.setText(mday + "/" + (mMonth + 1) + "/" + mYear);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    Boolean isShowing = true;
+                    if (callCount == 0) {
+                        c2 = Calendar.getInstance();
+                        currentHour = c2.get(Calendar.HOUR_OF_DAY);
+                        currentMinute = c2.get(Calendar.MINUTE);
+                        timePickerDialog = new TimePickerDialog(ShareActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (hourOfDay >= 12) {
+                                    ampm = " PM";
+                                } else {
+                                    ampm = " AM";
+                                }
+                                time=String.format("%02d:%02d", hourOfDay, minute);
+                                chooseTime.setText(time + ampm);
+                            }
+                        }, currentHour, currentMinute, true);
                     }
-                }, day, month, year);
-                datePickerDialog.show();
+                    timePickerDialog.show();
+                }
+                return false;
             }
         });
-
-        //TIMER
-        chooseTime = findViewById(R.id.time_suggest);
-        chooseTime.setOnClickListener(new View.OnClickListener() {
+        //Date dialog
+        chooseDate=findViewById(R.id.date_suggest);
+        chooseDate.setOnTouchListener(new View.OnTouchListener(){
             @Override
-            public void onClick(View v) {
-                c2 = Calendar.getInstance();
-                currentHour = c2.get(Calendar.HOUR_OF_DAY);
-                currentMinute = c2.get(Calendar.MINUTE);
-                timePickerDialog = new TimePickerDialog(com.example.oto.ShareActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        if (hourOfDay >= 12) {
-                            ampm = "PM";
-                        } else {
-                            ampm = "AM";
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    calendar = Calendar.getInstance();
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    int month = calendar.get(Calendar.MONTH);
+                    int year = calendar.get(Calendar.YEAR);
+                    datePickerDialog = new DatePickerDialog(ShareActivity.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int mYear, int mMonth, int mday) {
+                            date=mday + "/" + (mMonth + 1) + "/" + mYear;
+                            chooseDate.setText(date);
                         }
-                        chooseTime.setText(String.format("%02d:%02d", hourOfDay, minute) + ampm);
-                    }
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
-            }
+                    }, day, month, year);
+                    datePickerDialog.show();
 
+                }
+                return false;
+            }
         });
-        // freePlaces=findViewById(R.id.free_place);
-        btnSuggest = (Button) findViewById(R.id.suggest_ride);
-        textView = findViewById(R.id.tv_suggest);
+
+
 
         btnSuggest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//json create
+                final JSONObject obj = new JSONObject();
+                try {
+                    obj.put("origin", origin_ac);
+                    obj.put("dest", dest_ac);
+                    obj.put("time", time);
+                    obj.put("driver", App.getUID());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    App.setSource(source);
-                    App.setDest(destination);
-                    App.setDate(ShowTheDate.getText().toString());
-                    App.setTime(chooseTime.getText().toString());
-
-                    //Toast.makeText(ShareActivity.this, user.getUid(), Toast.LENGTH_SHORT).show();
-
-                    user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<GetTokenResult> task) {
-                            if(task.isSuccessful()){
-                                tokenIDFirebase = task.getResult().getToken();
-                                JSONObject obj = new JSONObject();
+                Log.i(TAG, "onClick: " + obj.toString());
+                Log.i(TAG, "onClick: " + App.getToken());
+                Log.i(TAG, "onClick: " + "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0OGYzZjk4N2IxNzMxOWZlZDhjZDc2ODNmNTIyNWEyOTY0YzY5OWQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb3RvcHJvamVjdC0xNTUxMTAzNzkyNTEzIiwiYXVkIjoib3RvcHJvamVjdC0xNTUxMTAzNzkyNTEzIiwiYXV0aF90aW1lIjoxNTYwMTIyMjYwLCJ1c2VyX2lkIjoib3BFQzhGUXQzbWV6OVRSSTNPUjUzaGxuUUs1MyIsInN1YiI6Im9wRUM4RlF0M21lejlUUkkzT1I1M2hsblFLNTMiLCJpYXQiOjE1NjAxNzEzMDYsImV4cCI6MTU2MDE3NDkwNiwiZW1haWwiOiJnYWxvcmxhbm92QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJnYWxvcmxhbm92QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.i6uBwSN8zA-QzG-0g9YBI6IWOkrgWBrvDQqb7QxuHeJeeYS30GnqgYJhuFTXJQLqOmXxfIfOqTTfz8k91yef8_ThLlyQdaLvJFCx708c7Rxsh_bvBQM-fHD78cXjgep2v0C5BPoajZB8Eur2U5ewOFvI0ARqadiAGROKIn_GyeC3x8cS8pvkFzrF7vBB9ppmovhJ-2ZR8js2XQpJ7zNUwvwD7b8PiIt1P1tnxED7ioiDgRUYp_KrwCfVG4BffUkvFJNG1pB27wOZudbzWRuir6Sqt6ncmgy8cAGBQ0DL7agD0kp8H-_nBzJln-iJUAkMu3CsE3DQN3DuR1TI24QpXA");
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (Request.Method.POST, App.url + "ride", obj, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
                                 try {
-                                    obj.put("origin", App.getFirstName());
-                                    obj.put("dest", App.getLastName());
-                                    obj.put("date", App.getDate());
-                                    obj.put("time", App.getTime());
-                                    obj.put("driver", tokenIDFirebase);
-                                    //obj.put("free Places",App.getPassword());
-                                    // obj.put("driver",App.getEmail());
-                                    // obj.put("id",App.getEmail());
+                                    Log.i(TAG, "onResponse: " + response.toString());
+
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
-                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                                        (Request.Method.POST, App.url + "ride/", obj, new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
-                                                Toast.makeText(ShareActivity.this, App.getUID()+"\n"+tokenIDFirebase, Toast.LENGTH_SHORT).show();
-                                                textView.setText("connect to server!");
-                                                try {
-                                                    JSONObject user = (JSONObject) response.get("ride");
-                                                    Toast.makeText(ShareActivity.this, "got ride", Toast.LENGTH_LONG).show();
-                                                    if (user.has("token")) {
-                                                        String token = user.getString("token");
-                                                        App.setToken(token);
-                                                        Toast.makeText(ShareActivity.this, App.getToken(), Toast.LENGTH_LONG).show();
-                                                        openSuggestResult();
-                                                    } else {
-                                                        Toast.makeText(ShareActivity.this, "No Such User", Toast.LENGTH_LONG).show();
-                                                        openRegisterStep1Activity();
-                                                    }
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        }, new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-                                                error.printStackTrace();
-                                                textView.setText("faild to connect to server!");
-                                                //Toast.makeText(ShareActivity.this, "Login Server Failed", Toast.LENGTH_LONG).show();
-                                                Log.i(error.getMessage(), "HttpPost() - onErrorResponse() ");
-
-                                            }
-                                        }) {
-                                    @Override
-                                    public Map<String, String> getHeaders() throws AuthFailureError {
-                                        HashMap<String, String> params = new HashMap<String, String>();
-                                        String creds = String.format("%s:%s", "hqplayer", "valvole");
-                                        String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-                                        params.put("Authorization", auth);
-                                        return params;
-                                    }
-                                };
-
-                                RequestQueue queue = Volley.newRequestQueue(App.getContext());
-                                queue.add(jsonObjectRequest);
-
-                                openSuggestResult();
-                            }else{
-                                Toast.makeText(ShareActivity.this, "Failed To Get Token From User", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.i(error.getMessage(), "HttpPost() - onErrorResponse() ");
+                            }
+                        }) {
+                    @Override
+                    public byte[] getBody() {
+                        String stringobj = obj.toString();
+                        return stringobj.getBytes();
+                    }
 
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Authorization", App.getToken());
+                        return headers;
+                    }
 
+                };
 
-                } else {
-                    // No user is signed in
-                }
+                RequestQueue queue = Volley.newRequestQueue(App.getContext());
+                queue.add(jsonObjectRequest);
 
-
-                // App.setFreePlaces(freePlaces.getText().toString());
-                /*    Start communication to server    */
-
-
-
-                /*    Finished communication to server    */
 
             }
+
         });
     }
-
 
     public void openSuggestResult() {
         Intent intent = new Intent(this, SuggestResultActivity.class);

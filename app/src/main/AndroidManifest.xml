@@ -23,6 +23,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".FindActivity" />
         <activity android:name=".ShareActivity" />
+        <activity android:name=".SearchRideFragment"/>
 
         <activity
             android:name=".MainPageActivity"

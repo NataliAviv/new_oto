@@ -24,6 +24,7 @@ public class RegisterStep4Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        App.conectTofireBase(App.getEmail(),App.getPassword());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step4);
         checkBox_terms = findViewById(R.id.reg4_check_box_terms);
