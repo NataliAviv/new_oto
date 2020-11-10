@@ -4,8 +4,7 @@ Such as - institution of study or workplace.
 You can search for a ride, suggest a ride, rate your driver, see your suggested ride or your upcoming ride.
 
 ## Overview
-![ezgif com-gif-maker](ezgif.com-gif-maker (1).gif) / ![](ezgif.com-gif-maker (1).gif)
-
+![alt-text](https://github.com/NataliAviv/new_oto/blob/master/ezgif.com-gif.gif)
 ## Explanation
  The app allows you to connect car owners - those defined as drivers, to passengers - who are looking for an easy and convenient way to reach the same destination.
 The purpose of the app is to reduce the use of as many vehicles as possible and make the most of the number of available spaces in each of them.
